@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import javax.inject.Inject;
 
+import negron.kaya.exampledagger.dagger.DieselEngineModule;
 import negron.kaya.exampledagger.models.Car;
 
 public class MainActivity extends AppCompatActivity {
@@ -16,7 +17,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        CarComponent component = DaggerCarComponent.create();
+        CarComponent component = DaggerCarComponent.builder()
+                .dieselEngineModule(new DieselEngineModule(100))
+                .build();
+
         component.inject(this);
 
         car.drive();
